@@ -11,18 +11,19 @@ jobs:
       - name: Descargar código
         uses: actions/checkout@v4
 
-      - name: Configurar Java 17
+      - name: Instalar Java 17
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: '17'
 
-      # AQUÍ ESTÁ LA CLAVE: Le decimos que entre a la carpeta AjedrezEpico
-      - name: Compilar APK con Gradle
+      - name: Instalar Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Compilar APK
         working-directory: ./AjedrezEpico
         run: ./gradlew assembleDebug
 
-      # Guardar el APK generado para poder descargarlo
       - name: Guardar APK
         uses: actions/upload-artifact@v4
         with:
